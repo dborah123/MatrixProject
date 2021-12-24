@@ -1,4 +1,5 @@
-import java.lang.Exception
+
+import jetbrains-kotlinx-coroutines-core
 
 class Matrix (arr: Array<IntArray>) {
     var arr = arr
@@ -105,9 +106,9 @@ class Matrix (arr: Array<IntArray>) {
         return result
     }
 
-    operator fun times(other:Matrix): Matrix {
+    fun timesNonThreading(other:Matrix): Matrix {
         /*
-         * Non-threading version of matrix multiplication
+         * Non-coroutine version of matrix multiplication
          */
 
         // Checking if matrices are valid dimensions
@@ -126,5 +127,29 @@ class Matrix (arr: Array<IntArray>) {
         }
 
         return result
+    }
+
+    operator fun times(other:Matrix): Matrix {
+        /*
+         * Coroutine version of times function
+         */
+        // Checking if matrices are valid dimensions
+        if (this.cols != other.rows) {
+            throw Exception("Matrices are not of compatible dimensions for matrix multiplication")
+        }
+
+        val result = Matrix(Array(this.cols) { _ -> IntArray(other.rows) { _ -> 0 } })
+        GlobalScope.launch(Dispa)
+        for (col in other.arr[0].indices) {
+            for (row in this.arr[0].indices) {
+
+
+            }
+        }
+    return result
+    }
+
+    suspend fun coroutineHelper(rowA:IntArray, colBNum:Int, colBArr:Array<IntArray>): Int {
+
     }
 }
