@@ -1,5 +1,4 @@
-
-import jetbrains-kotlinx-coroutines-core
+import kotlinx.coroutines.*
 
 class Matrix (arr: Array<IntArray>) {
     var arr = arr
@@ -139,11 +138,12 @@ class Matrix (arr: Array<IntArray>) {
         }
 
         val result = Matrix(Array(this.cols) { _ -> IntArray(other.rows) { _ -> 0 } })
-        GlobalScope.launch(Dispa)
-        for (col in other.arr[0].indices) {
-            for (row in this.arr[0].indices) {
+        GlobalScope.launch(Dispatchers.Default) {
+            for (col in other.arr[0].indices) {
+                for (row in this.arr[0].indices) {
+                    result.arr[row][col] = coroutineHelper()
 
-
+                }
             }
         }
     return result
